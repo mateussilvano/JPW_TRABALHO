@@ -4,7 +4,7 @@ let schema = new mongoose.Schema({
     nome:{
         type: String,
         required: true,
-        unique: true
+        
     },
     senha: String,
     admin: {
@@ -13,4 +13,6 @@ let schema = new mongoose.Schema({
     }
 })
 
-let turma = mongoose.Model
+let turmamodelo = mongoose.model('turmamodelo', schema)
+
+module.exports = turmamodelo

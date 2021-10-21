@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
-let turma = [
+const Turmamodelo = require('../models/turma_mol')
+
+
+/*let turma = [
     {
         //Aqui vai buscar o curso em cursos.js
         "Curso": "Ensino Fundamental 1º ao 5º",
@@ -11,10 +14,12 @@ let turma = [
         //Aqui será para selecionar
         "Turno": "Matutino",
     }
-]
+]*/
 //Pesquisa todas as turmas
-router.get('/', function(req, res){
-    res.json(turma)
+router.get('/', async function(req, res){
+    let turmamodelos = await Turmamodelo.find()
+    Turmamodelo.
+    res.json(turmamodelos)
 })
 
 //Pesquisa as turmas por ID
@@ -29,10 +34,10 @@ router.get('/:id', function(req, res){
 })
 
 //Inserir turma
-router.post('/', function(req, res){
-    let us = req.body
-    turma.push(us)
-    res.json(us)
+router.post('/', async function(req, res){
+    let turmamodelos = new Turmamodelo(req.body)
+    await turmamodelos.save() 
+    res.json(turmamodelos)
 })
 
 //Atualizar turma
