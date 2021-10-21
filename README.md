@@ -3,15 +3,17 @@
 ## INSTALAÇÃO
 //npm start
 ## ENDPOINTS
- ### Recurso 1
+ ### Cursos
 
  ### Modelo de Dado
- {
- atributo: tipo,
- atributo: tipo,
- atributo: tipo,
- atributo: tipo,
- }
+{
+codigo: Number,
+nome: String,
+grau: Number,
+serieInicial: Number,
+serieFinal: Number,
+admin: Boolean,
+}
  ### GET
     #### Requisição
     #### Exemplo de resposta
@@ -30,9 +32,61 @@
     #### Exemplo de resposta
     #### Erros
  
- ### Recurso 2
+ ### Estudante 
+
+ ### Modelo de Dado
+{
+codigo: Number,
+nome: String,
+email: String,
+senha: String,
+dtNascimento: Date,
+cpf: String,
+telefone: String,
+nacionalidade: String,
+sexo: String,
+admin: Boolean,
+}
  
- ### Recurso 3
+ ### Materias 
+
+ ### MODELO DE DADO
+{
+codigo: Number,
+nome: String,
+}
+
+ ### Professor 
+
+ ### Modelo de Dado
+{
+codigo: Number,
+nome: String,
+email: String,
+senha: String,
+dtNascimento: Date,
+cpf: String,
+telefone: String,
+nacionalidade: String,
+sexo: String,
+função: String,
+escolaridade: String,
+admin: Boolean,
+}  
+
+ ### Turma 
+
+ ### Modelo de Dado
+{
+curso: String,
+serie: Number,
+turma: Number,
+sala: Number,
+limiteAlunos: Number,
+Turno: String,
+admin: Boolean,
+}
+
 
 ## AUTENTICAÇÃO
 //

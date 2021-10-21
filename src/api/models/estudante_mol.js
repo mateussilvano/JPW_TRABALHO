@@ -28,11 +28,11 @@ let schema = new mongoose.Schema({
     },
 
     cpf: {
-        type: Boolean,
+        type: String,
         required: true
     },
 
-    telefone: Number,
+    telefone: String,
     nacionalidade: String,
     sexo: String,
    
