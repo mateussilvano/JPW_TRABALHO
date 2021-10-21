@@ -35,7 +35,6 @@ let cursos = [
 ]
 //Pesquisa todos cursos
 router.get('/', async function(req, res){
-    //let cursost = await cursos.find({Grau:"1"}) 
     res.json(cursos)
 })
 
