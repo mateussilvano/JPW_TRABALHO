@@ -6,7 +6,7 @@ const Professormodelo = require('../models/professor_mol')
 router.get('/', async function(req, res){
     let limitnumber = parseInt(req.query.limit) || 3
     let skipnumber = parseInt(req.query.limit) || 0
-    let professormodelo = await Professormodelo.find({nome: "joao"}).limit(limitnumber).skip(skipnumber)
+    let professormodelo = await Professormodelo.find().limit(limitnumber).skip(skipnumber)
     res.json(professormodelo)
 })
 
