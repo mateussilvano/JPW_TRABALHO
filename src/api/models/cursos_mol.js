@@ -1,32 +1,31 @@
 const mongoose = require('mongoose')
 
 let schema = new mongoose.Schema({
-    curso:{
-        type: String,
+    codigo:{
+        type: Number,
         required: true,
         
     },
     
-    serie:{
-        type: Number,
+    nome:{
+        type: String,
         required: true,
     },
 
-    turma: {
+    grau: {
        type: Number,
        required: true, 
     },
 
-    sala: Number,
-    limiteAlunos: Number,
-    Turno: String,
-   
+    serieInicial: Number,
+    serieFinal: Number,
+       
     admin:{
         type: Boolean,
         default: false,
     }
 })
 
-let Turmamodelo = mongoose.model('Turmamodelo', schema)
+let Cursosmodelo = mongoose.model('Cursosmodelo', schema)
 
-module.exports = Turmamodelo
+module.exports = Cursosmodelo

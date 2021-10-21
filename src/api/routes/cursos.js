@@ -1,74 +1,45 @@
 const express = require('express')
 const router = express.Router()
-let cursos = [
-    {
-        "Código":"001",
-        "Nome": "Ensino Infantil",
-        "Grau": "0",
-        "Série Inicial": "1",
-        "Série Final": "4",
-    },
-
-    {
-        "Código":"002",
-        "Nome": "Ensino Fundamental 1º ao 5º",
-        "Grau": "1",
-        "Série Inicial": "1",
-        "Série Final": "5",
-    },
-
-    {
-        "Código":"003",
-        "Nome": "Ensino Fundamental 6º ao 9º",
-        "Grau": "1",
-        "Série Inicial": "3",
-        "Série Final": "6",
-    },
-
-    {
-        "Código":"004",
-        "Nome": "Ensino Médio",
-        "Grau": "2",
-        "Série Inicial": "1",
-        "Série Final": "3",
-    }
-]
+const Cursosmodelo = require('../models/cursos_mol')
+   
 //Pesquisa todos cursos
 router.get('/', async function(req, res){
-    res.json(cursos)
+    let limitnumber = parseInt(req.query.limit) || 5
+    let skipnumber = parseInt(req.query.limit) || 0
+    let cursosmodelo = await Cursosmodelo.find({grau: "1"}).limit(limitnumber).skip(skipnumber)
+    res.json(cursosmodelo)
 })
 
 //Pesquisa os cursos por ID
-router.get('/:id', function(req, res){
+router.get('/:id', async function(req, res){
     let id = req.params.id
+    let cursosmodelo = await Cursosmodelo.findById(id)
 
-    if(cursos[id] == undefined){
-        res.statusCode = 404
+    if(!cursosmodelo){
+        res.status(404).json ({error: "Curso não encontrada"})
     }
-
-    res.json(cursos[id])
+    res.json(cursosmodelo[id])
 })
 
 //Inserir curso
-router.post('/', function(req, res){
-    let us = req.body
-    cursos.push(us)
-    res.json(us)
+router.post('/', async function(req, res){
+    let cursosmodelo = new Cursosmodelo(req.body)
+    await cursosmodelo.save() 
+    res.json(cursosmodelo)
 })
 
 //Atualizar curso
-router.put('/:id', function(req, res){
+router.put('/:id', async function(req, res){
     let id = req.params.id
-    let us = req.body
-    cursos[id] = us
-    res.json(us)
+    let cursosmodelo = await  Cursosmodelo.findByIdAndUpdate(id, req.body)
+    res.json(cursosmodelo)
 })
 
 //Deletar curso por ID
-router.delete('/:id', function(req, res){
+router.delete('/:id', async function(req, res){
     let id = req.params.id
-    let deletado = cursos.splice(id , 1)
-    res.json(deletado)
+    let cursosmodelo = await  Cursosmodelo.findByIdAndDelete(id, req.body)
+    res.json(cursosmodelo)
 })
 
 module.exports = router

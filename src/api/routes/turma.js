@@ -2,57 +2,44 @@ const express = require('express')
 const router = express.Router()
 const Turmamodelo = require('../models/turma_mol')
 
-
-/*let turma = [
-    {
-        //Aqui vai buscar o curso em cursos.js
-        "Curso": "Ensino Fundamental 1º ao 5º",
-        "Serie": "3º ano",
-        "Turma": "A",
-        "Sala": "6",
-        "Limite Alunos":"30",
-        //Aqui será para selecionar
-        "Turno": "Matutino",
-    }
-]*/
 //Pesquisa todas as turmas
 router.get('/', async function(req, res){
-    let turmamodelos = await Turmamodelo.find()
-    Turmamodelo.
-    res.json(turmamodelos)
+    let limitnumber = parseInt(req.query.limit) || 3
+    let skipnumber = parseInt(req.query.limit) || 0
+    let turmamodelo = await Turmamodelo.find({turno: "matutino"}).limit(limitnumber).skip(skipnumber)
+    res.json(turmamodelo)
 })
 
 //Pesquisa as turmas por ID
-router.get('/:id', function(req, res){
+router.get('/:id', async function(req, res){
     let id = req.params.id
+    let turmamodelo = await Turmamodelo.findById(id)
 
-    if(turma[id] == undefined){
-        res.statusCode = 404
+    if(!turmamodelo){
+        res.status(404).json ({error: "Turma não encontrada"})
     }
-
-    res.json(turma[id])
+    res.json(turmamodelo[id])
 })
 
 //Inserir turma
 router.post('/', async function(req, res){
-    let turmamodelos = new Turmamodelo(req.body)
-    await turmamodelos.save() 
-    res.json(turmamodelos)
+    let turmamodelo = new Turmamodelo(req.body)
+    await turmamodelo.save() 
+    res.json(turmamodelo)
 })
 
 //Atualizar turma
-router.put('/:id', function(req, res){
+router.put('/:id', async function(req, res){
     let id = req.params.id
-    let us = req.body
-    turma[id] = us
-    res.json(us)
+    let turmamodelo = await  Turmamodelo.findByIdAndUpdate(id, req.body)
+    res.json(turmamodelo)
 })
 
 //Deletar turma por ID
-router.delete('/:id', function(req, res){
+router.delete('/:id', async function(req, res){
     let id = req.params.id
-    let deletado = turma.splice(id , 1)
-    res.json(deletado)
+    let turmamodelo = await  Turmamodelo.findByIdAndDelete(id, req.body)
+    res.json(turmamodelo)
 })
 
 module.exports = router

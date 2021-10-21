@@ -1,63 +1,45 @@
 const express = require('express')
 const router = express.Router()
-let materias = [
-    {
-        "código": "038",
-        "nome": "Artes",
-    },
-    {
-        "código": "008",
-        "nome": "Ciências",
-    },
-    {
-        "código": "010",
-        "nome": "Eduação Física",
-    },
-    {
-        "código": "005",
-        "nome": "Geografia",
-    },
-    {
-        "código": "004",
-        "nome": "História",
-    }
-]
+const Materiasmodelo = require('../models/materias_mol')
+
 //Pesquisa todas as materias
-router.get('/', function (req, res) {
-    res.json(materias)
+router.get('/', async function(req, res){
+    let limitnumber = parseInt(req.query.limit) || 3
+    let skipnumber = parseInt(req.query.limit) || 0
+    let materiasmodelo = await Materiasmodelo.find().limit(limitnumber).skip(skipnumber)
+    res.json(materiasmodelo)
 })
 
 //Pesquisa a materia por ID
-router.get('/:id', function (req, res) {
+router.get('/:id', async function(req, res){
     let id = req.params.id
+    let materiasmodelo = await Materiasmodelo.findById(id)
 
-    if (materias[id] == undefined) {
-        res.statusCode = 404
+    if(!materiasmodelo){
+        res.status(404).json ({error: "Turma não encontrada"})
     }
-
-    res.json(materias[id])
+    res.json(materiasmodelo[id])
 })
 
 //Inserir matéria
-router.post('/', function (req, res) {
-    let us = req.body
-    materias.push(us)
-    res.json(us)
+router.post('/', async function(req, res){
+    let materiasmodelo = new Materiasmodelo(req.body)
+    await materiasmodelo.save() 
+    res.json(materiasmodelo)
 })
 
 //Atualizar matéria
-router.put('/:id', function (req, res) {
+router.put('/:id', async function(req, res){
     let id = req.params.id
-    let us = req.body
-    materias[id] = us
-    res.json(us)
+    let materiasmodelo = await  Materiasmodelo.findByIdAndUpdate(id, req.body)
+    res.json(materiasmodelo)
 })
 
 //Deletar materia por ID
-router.delete('/:id', function (req, res) {
+router.delete('/:id', async function(req, res){
     let id = req.params.id
-    let deletado = materias.splice(id, 1)
-    res.json(deletado)
+    let materiasmodelo = await  Materiasmodelo.findByIdAndDelete(id, req.body)
+    res.json(materiasmodelo)
 })
 
 module.exports = router

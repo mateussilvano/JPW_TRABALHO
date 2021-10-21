@@ -1,56 +1,44 @@
 const express = require('express')
 const router = express.Router()
-let usuario = [
-    {
-        "Código": "1",
-        "nome" : "teste",
-        "Email": "teste@teste.com",
-        "senha": "teste12345",
-        "Dt. Nascimento":"09/05/2011",
-        "CPF"  : "11111111111",
-        "Telefone" : "(48) 11111-1111",
-        "Nacionalidade" : "Brasileira",
-        "Sexo": "Masculino",
-        "Função": "Professor",
-        "Escolaridade": "Magistério Completo"
-    }
-]
+const Professormodelo = require('../models/professor_mol')
+
 //Pesquisa todos os professores
-router.get('/', function(req, res){
-    res.json(usuario)
+router.get('/', async function(req, res){
+    let limitnumber = parseInt(req.query.limit) || 3
+    let skipnumber = parseInt(req.query.limit) || 0
+    let professormodelo = await Professormodelo.find({nome: "joao"}).limit(limitnumber).skip(skipnumber)
+    res.json(professormodelo)
 })
 
 //Pesquisa o professor por ID
-router.get('/:id', function(req, res){
+router.get('/:id', async function(req, res){
     let id = req.params.id
+    let professormodelo = await Professormodelo.findById(id)
 
-    if(usuario[id] == undefined){
-        res.statusCode = 404
+    if(!professormodelo){
+        res.status(404).json ({error: "Turma não encontrada"})
     }
-
-    res.json(usuario[id])
+    res.json(professormodelo[id])
 })
-
 //Inserir professor
-router.post('/', function(req, res){
-    let us = req.body
-    usuario.push(us)
-    res.json(us)
+router.post('/', async function(req, res){
+    let professormodelo = new Professormodelo(req.body)
+    await professormodelo.save() 
+    res.json(professormodelo)
 })
 
 //Atualizar professor
-router.put('/:id', function(req, res){
+router.put('/:id', async function(req, res){
     let id = req.params.id
-    let us = req.body
-    usuario[id] = us
-    res.json(us)
+    let professormodelo = await  Professormodelo.findByIdAndUpdate(id, req.body)
+    res.json(professormodelo)
 })
 
 //Deletar professor por ID
-router.delete('/:id', function(req, res){
+router.delete('/:id', async function(req, res){
     let id = req.params.id
-    let deletado = usuario.splice(id , 1)
-    res.json(deletado)
+    let professormodelo = await  Professormodelo.findByIdAndDelete(id, req.body)
+    res.json(professormodelo)
 })
 
 module.exports = router
