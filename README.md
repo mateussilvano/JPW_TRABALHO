@@ -1,7 +1,7 @@
 ## Sobre e Autor
-//
+//Mateus Brognoli Silvano
 ## INSTALAÇÃO
-//
+//npm start
 ## ENDPOINTS
  ### Recurso 1
 
