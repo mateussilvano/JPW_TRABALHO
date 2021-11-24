@@ -15,4 +15,3 @@ mongoose.connect(url).then(function(){
         console.log(`Servidor rodando na porta ${port}`)
     })
 }).catch()
-

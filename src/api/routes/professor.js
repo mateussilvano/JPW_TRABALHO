@@ -3,14 +3,14 @@ const cors = require('cors')
 const app = express()
 const router = express.Router()
 const Professormodelo = require('../models/professor_mol')
+router.use(cors())
 
 //Pesquisa todos os professores
-router.get('/', async function (req, res) {
-    let limitnumber = parseInt(req.query.limit) || 25
-    let skipnumber = parseInt(req.query.limit) || 5
-    let professormodelo = await Professormodelo.find().limit(limitnumber).skip(skipnumber)
+router.get('/', async function (req, res)  {
+    let limitnumber = parseInt(req.query.limit)
+    let skipnumber = parseInt(req.query.limit) || 0
+    let professormodelo = await Professormodelo.find().skip(skipnumber)
     res.json(professormodelo)
-  res.setHeader('Access-Control-Allow-Origin', '*');
 })
 
 //Pesquisa o professor por ID

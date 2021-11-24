@@ -8,6 +8,7 @@ router.get('/', async function(req, res){
     let skipnumber = parseInt(req.query.limit) || 0
     let turmamodelo = await Turmamodelo.find({turno: "matutino"}).limit(limitnumber).skip(skipnumber)
     res.json(turmamodelo)
+    
 })
 
 //Pesquisa as turmas por ID
