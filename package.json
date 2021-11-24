@@ -12,7 +12,7 @@
     "nodemon": "^2.0.13"
   },
   "scripts": {
-    "dev": "PORT=3000 nodemon ./src/index.js",
+    "dev": "PORT=5050 nodemon ./src/index.js",
     "start": "nodemon ./src/index.js"
   },
   "keywords": [],

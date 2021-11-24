@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors')
 const estudante = require ('./estudante')
 const professor = require ('./professor')
 const cursos = require ('./cursos')
