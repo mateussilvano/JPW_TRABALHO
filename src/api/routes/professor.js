@@ -6,10 +6,11 @@ const Professormodelo = require('../models/professor_mol')
 
 //Pesquisa todos os professores
 router.get('/', async function (req, res) {
-    let limitnumber = parseInt(req.query.limit) || 3
-    let skipnumber = parseInt(req.query.limit) || 0
+    let limitnumber = parseInt(req.query.limit) || 25
+    let skipnumber = parseInt(req.query.limit) || 5
     let professormodelo = await Professormodelo.find().limit(limitnumber).skip(skipnumber)
     res.json(professormodelo)
+  res.setHeader('Access-Control-Allow-Origin', '*');
 })
 
 //Pesquisa o professor por ID
