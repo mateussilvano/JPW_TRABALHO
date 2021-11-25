@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 let schema = new mongoose.Schema({
-    codigo:{
+    /*codigo:{
         type: Number,
         required: true,
         
-    },
+    },*/
     
     nome:{
         type: String,
