@@ -8,7 +8,7 @@ const cursos = require ('./cursos')
 const materias = require ('./materias')
 const turma = require ('./turma')
 
-app.use(cors())
+router.use(cors())
 
 router.use('/estudante', estudante)
 router.use('/professor', professor)

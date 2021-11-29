@@ -3,7 +3,6 @@ const cors = require('cors')
 const app = express()
 const router = express.Router()
 const Professormodelo = require('../models/professor_mol')
-router.use(cors())
 
 //Pesquisa todos os professores
 router.get('/', async function (req, res)  {
