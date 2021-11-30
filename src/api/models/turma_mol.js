@@ -19,7 +19,7 @@ let schema = new mongoose.Schema({
 
     sala: Number,
     limiteAlunos: Number,
-    Turno: String,
+    turno: String,
    
     admin:{
         type: Boolean,

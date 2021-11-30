@@ -6,7 +6,7 @@ const Turmamodelo = require('../models/turma_mol')
 router.get('/', async function(req, res){
     let limitnumber = parseInt(req.query.limit) || 3
     let skipnumber = parseInt(req.query.limit) || 0
-    let turmamodelo = await Turmamodelo.find({turno: "matutino"}).limit(limitnumber).skip(skipnumber)
+    let turmamodelo = await Turmamodelo.find().limit(limitnumber).skip(skipnumber)
     res.json(turmamodelo)
     
 })
